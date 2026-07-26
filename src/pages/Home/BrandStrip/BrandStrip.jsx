@@ -18,7 +18,7 @@ const BrandStrip = () => {
     <section className="py-10 bg-gray-950 border-y border-white/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
         <h2 className="text-center text-gray-400 text-sm uppercase tracking-widest">
-          Our brand partners
+          Our brand partners <p className="text-red-600">DELIT KORBO</p>
         </h2>
       </div>
 

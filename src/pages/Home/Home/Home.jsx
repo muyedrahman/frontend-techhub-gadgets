@@ -1,14 +1,26 @@
 import React from 'react';
 import Banner from '../Banner/Banner';
-import BrandStrip from '../BrandStrip/BrandStrip';
+
 import LogoMarquee from '../LogoMarquee/LogoMarquee';
+import CategoryHighlights from '../CategoryHighlights/CategoryHighlights';
+import WhyTechHub from '../WhyTechHub/WhyTechHub';
+import Testimonials from '../Testimonials/Testimonials';
+
+
+
 
 const Home = () => {
     return (
       <div>
         <Banner />
-        <BrandStrip />
+        {/* <BrandStrip /> */}
         <LogoMarquee />
+        {/* <ProductCard></ProductCard> */}
+        {/* <FeaturedProducts /> */}
+        <CategoryHighlights />
+        <WhyTechHub />
+        {/* <NewArrivals /> */}
+        <Testimonials />
       </div>
     );
 };
