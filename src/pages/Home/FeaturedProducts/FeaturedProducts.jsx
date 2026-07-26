@@ -59,9 +59,11 @@
 
 // 2
 
-import React, { useEffect, useState } from "react";
-import ProductCard from "../product/ProductCard";
+import { useEffect, useState } from "react";
+import ProductCard from "../../../components/ProductCard/ProductCard";
 import api from "../../services/api";
+
+
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
