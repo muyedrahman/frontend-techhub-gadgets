@@ -24,12 +24,12 @@ const FeaturedProducts = () => {
             Featured <span className="text-teal-400">Products</span>
           </h2>
           <a href="/products" className="text-sm text-teal-400 hover:underline">
-            সব দেখুন →
+            View All →
           </a>
         </div>
 
         {loading ? (
-          <p className="text-gray-400 text-sm">লোড হচ্ছে...</p>
+          <p className="text-gray-400 text-sm">Loding...</p>
         ) : products.length === 0 ? (
           <p className="text-gray-400 text-sm">
             এখনো কোনো প্রোডাক্ট যোগ করা হয়নি।
