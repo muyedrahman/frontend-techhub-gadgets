@@ -149,11 +149,25 @@
 import React from "react";
 
 // আপনার ব্যানার বা লোগো ইমেজগুলো এখানে ইমপোর্ট করুন
-import bannerImg1 from "../../../assets/banner-01.jpg";
-import bannerImg2 from "../../../assets/banner-02.jpg";
-import bannerImg3 from "../../../assets/banner-03.jpg";
-import bannerImg4 from "../../../assets/banner-04.jpg";
-import bannerImg5 from "../../../assets/banner-05.jpg";
+import bannerImg1 from "../../../assets/Images/appal.png";
+import bannerImg2 from "../../../assets/Images/Asus.png";
+import bannerImg3 from "../../../assets/Images/Honor.png";
+import bannerImg4 from "../../../assets/Images/Huawei.png";
+import bannerImg5 from "../../../assets/Images/Infinix.png";
+import bannerImg6 from "../../../assets/Images/Motorola.png";
+import bannerImg7 from "../../../assets/Images/Nothing.png";
+import bannerImg8 from "../../../assets/Images/OnePlus.png";
+import bannerImg9 from "../../../assets/Images/Oppo.png";
+import bannerImg10 from "../../../assets/Images/Realme.png";
+import bannerImg11 from "../../../assets/Images/Samsung.png";
+import bannerImg12 from "../../../assets/Images/Tecno.png";
+import bannerImg13 from "../../../assets/Images/Vercu.png";
+import bannerImg14 from "../../../assets/Images/Xiaomi.png";
+import bannerImg15 from "../../../assets/Images/ZTE-Nubia.png";
+import bannerImg16 from "../../../assets/Images/vivo-logo.png";
+import bannerImg17 from "../../../assets/Images/Google Pixel.png";
+
+
 
 // ব্র্যান্ডের নাম এবং ইমেজ লিস্ট
 const brands = [
@@ -162,18 +176,18 @@ const brands = [
   { name: "Vivo", img: bannerImg3 },
   { name: "Huawei", img: bannerImg4 },
   { name: "Oppo", img: bannerImg5 },
-  { name: "Infinix", img: bannerImg1 },
-  { name: "Motorola", img: bannerImg2 },
-  { name: "Nothing", img: bannerImg3 },
-  { name: "Google Pixel", img: bannerImg4 },
-  { name: "Tecno", img: bannerImg5 },
-  { name: "ZTE/Nubia", img: bannerImg1 },
-  { name: "Vercu", img: bannerImg2 },
-  { name: "Realme", img: bannerImg3 },
-  { name: "Honor", img: bannerImg4 },
-  { name: "OnePlus", img: bannerImg5 },
-  { name: "Asus", img: bannerImg1 },
-  { name: "Xiaomi", img: bannerImg2 },
+  { name: "Infinix", img: bannerImg6 },
+  { name: "Motorola", img: bannerImg7 },
+  { name: "Nothing", img: bannerImg8 },
+  { name: "Google Pixel", img: bannerImg9 },
+  { name: "Tecno", img: bannerImg10 },
+  { name: "ZTE/Nubia", img: bannerImg11 },
+  { name: "Vercu", img: bannerImg12 },
+  { name: "Realme", img: bannerImg13 },
+  { name: "Honor", img: bannerImg14 },
+  { name: "OnePlus", img: bannerImg15 },
+  { name: "Asus", img: bannerImg16 },
+  { name: "Xiaomi", img: bannerImg17 },
 ];
 
 const LogoCard = ({ brand }) => (
