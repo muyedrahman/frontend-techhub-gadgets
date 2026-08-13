@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router";
 import api from "../../services/api";
 import BtnSecondary from "../../components/Button/BtnSecondary";
 import BtnPrimary from "../../components/Button/BtnPrimary";
+import ProductDetailsSkeleton from "../../components/Skeleton/ProductDetailsSkeleton";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -26,12 +27,12 @@ const ProductDetails = () => {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-        <p className="text-gray-400 text-sm">Loading product...</p>
-      </div>
-    );
+    return <ProductDetailsSkeleton />
   }
+
+{/* <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+  <p className="text-gray-400 text-sm">Loading product...</p>
+</div>; */}
 
   if (notFound || !product) {
     return (
@@ -40,7 +41,12 @@ const ProductDetails = () => {
         {/* <Link to="/products" className="text-teal-400 text-sm hover:underline">
           ← Back to All Products
         </Link> */}
-        {/* <BtnPrimary>← Back to All Products</BtnPrimary> */}
+        <BtnPrimary
+          to="/products"
+          className="text-teal-400 text-sm hover:underline"
+        >
+          ← Back to All Products
+        </BtnPrimary>
       </div>
     );
   }

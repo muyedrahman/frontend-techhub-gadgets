@@ -102,6 +102,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../../../components/ProductCard/ProductCard";
 import api from "../../../services/api";
 import BtnPrimary from "../../../components/Button/BtnPrimary";
+import ProductGridSkeleton from "../../../components/Skeleton/ProductGridSkeleton";
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
@@ -135,7 +136,8 @@ const FeaturedProducts = () => {
         </div>
 
         {loading ? (
-          <p className="text-gray-400 text-sm">Loading...</p>
+          // <p className="text-gray-400 text-sm">Loading...</p>
+          <ProductGridSkeleton count={4} />
         ) : products.length === 0 ? (
           <p className="text-gray-400 text-sm">
             No products have been added yet.

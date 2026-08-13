@@ -5,6 +5,7 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import FilterPanel from "../../components/FilterPanel/FilterPanel";
 import Pagination from "../../components/Pagination/Pagination";
+import ProductGridSkeleton from "../../components/Skeleton/ProductGridSkeleton";
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -111,7 +112,8 @@ const Products = () => {
 
           <main>
             {loading ? (
-              <p className="text-gray-400 text-sm">Loading products...</p>
+              // <p className="text-gray-400 text-sm">Loading products...</p>
+              <ProductGridSkeleton count={8} />
             ) : products.length === 0 ? (
               <p className="text-gray-400 text-sm">
                 No products match your search or filter.

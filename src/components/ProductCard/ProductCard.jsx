@@ -117,7 +117,8 @@ const ProductCard = ({ product }) => {
         <BtnSecondary to={`/products/${_id}#specs`}>Specs</BtnSecondary>
       </div> */}
       <div className="flex gap-3 justify-center w-full">
-        <BtnPrimary to={`/products/${_id}`}>Explore</BtnPrimary>
+        <BtnPrimary to={`/products/${_id}`}>View Details</BtnPrimary>
+        {/* <BtnSecondary to={`/products/${_id}#specs`}>Specs</BtnSecondary>  Quick */}
         <BtnSecondary to={`/products/${_id}#specs`}>Specs</BtnSecondary>
       </div>
 
