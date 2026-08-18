@@ -170,9 +170,21 @@ const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
+        {/* <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
           <p>&copy; {new Date().getFullYear()} TechHub. All rights reserved.</p>
           <p>Built with React &amp; Tailwind CSS</p>
+        </div> */}
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
+          <p>&copy; {new Date().getFullYear()} TechHub. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <p>Built with Muyedur &amp; Rahman</p>
+            <Link
+              to="/admin/login"
+              className="text-gray-500 hover:text-teal-400 transition-colors"
+            >
+              Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
