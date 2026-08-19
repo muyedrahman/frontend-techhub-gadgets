@@ -65,6 +65,7 @@ import AdminLogin from "../pages/admin/AdminLogin/AdminLogin";
 import Dashboard from "../pages/admin/Dashboard/Dashboard";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import AddProduct from "../pages/admin/AddProduct/AddProduct";
+import ManageProducts from "../pages/admin/ManageProducts/ManageProducts";
 
 export const router = createBrowserRouter([
   {
@@ -95,15 +96,18 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
         children: [
-          { 
-            path: "dashboard", 
-            Component: Dashboard 
+          {
+            path: "dashboard",
+            Component: Dashboard,
           },
           // AddProduct, ManageProducts পরের ধাপে এখানে যোগ হবে
           {
             path: "products/add",
             Component: AddProduct,
           },
+          {
+           path: "products/manage", 
+           Component: ManageProducts },
         ],
       },
     ],
