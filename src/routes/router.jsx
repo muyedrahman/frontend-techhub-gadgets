@@ -67,6 +67,8 @@ import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import AddProduct from "../pages/admin/AddProduct/AddProduct";
 import ManageProducts from "../pages/admin/ManageProducts/ManageProducts";
 import EditProduct from "../pages/admin/EditProduct/EditProduct";
+import About from "../pages/About/About";
+import NotFound from "../pages/NotFound/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -111,9 +113,15 @@ export const router = createBrowserRouter([
             Component: ManageProducts,
           },
           {
-           path: "products/edit/:id",
-            Component: EditProduct 
+            path: "products/edit/:id",
+            Component: EditProduct,
           },
+          { 
+            path: "about", 
+            Component: About },
+          { 
+            path: "*",     
+            Component: NotFound },
         ],
       },
     ],
