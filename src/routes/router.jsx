@@ -70,6 +70,7 @@ import EditProduct from "../pages/admin/EditProduct/EditProduct";
 import About from "../pages/About/About";
 import NotFound from "../pages/NotFound/NotFound";
 
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
       {
         path: "admin/login",
         Component: AdminLogin,
+      },
+      {
+        path: "about",
+        Component: About,
       },
       {
         path: "admin",
@@ -116,13 +121,12 @@ export const router = createBrowserRouter([
             path: "products/edit/:id",
             Component: EditProduct,
           },
-          { 
-            path: "about", 
-            Component: About },
-          { 
-            path: "*",     
-            Component: NotFound },
+          
         ],
+      },
+      {
+        path: "*",
+        Component: NotFound,
       },
     ],
   },

@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
+// import { Link } from "react-router";
+// import { HiOutlineExclamationCircle } from "react-icons/hi";
 import BtnPrimary from "../../components/Button/BtnPrimary";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 const NotFound = () => {
   return (
