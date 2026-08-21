@@ -71,11 +71,21 @@ import About from "../pages/About/About";
 import NotFound from "../pages/NotFound/NotFound";
 
 
+
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
     children: [
+      // {
+      //   index: true,
+      //   element: (
+      //     <Suspense fallback={<Spinner />}>
+      //       <Home />
+      //     </Suspense>
+      //   ),
+      // },
+
       {
         index: true,
         Component: Home,
@@ -121,7 +131,6 @@ export const router = createBrowserRouter([
             path: "products/edit/:id",
             Component: EditProduct,
           },
-          
         ],
       },
       {
