@@ -6,11 +6,13 @@ import { uploadToImgBB } from "../../../services/imgbb";
 import { BRANDS } from "../../../constants/brandConstants";
 import BtnPrimary from "../../../components/Button/BtnPrimary";
 import BtnSecondary from "../../../components/Button/BtnSecondary";
+import { useToast } from "../../../context/ToastContext";
 
 const TYPES = ["mobile", "laptop", "tablet", "watch", "mac-mini"];
 
 const AddProduct = () => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
@@ -58,6 +60,7 @@ const AddProduct = () => {
 
     if (!name || !brand || !type || !price) {
       setError("Name, brand, type, and price are required.");
+      showToast("Name, brand, type, and price are required.", "error"); // অপশনাল: ফর্মে ফিল্ড মিসিং থাকলে টোস্ট দেখাতে চাইলে
       return;
     }
 
@@ -70,7 +73,6 @@ const AddProduct = () => {
       }
       setUploading(false);
 
-      // Convert specs array into a plain object, skipping empty rows
       const specsObject = specs.reduce((acc, item) => {
         if (item.key.trim()) acc[item.key.trim()] = item.value;
         return acc;
@@ -95,16 +97,79 @@ const AddProduct = () => {
         { headers: { Authorization: `Bearer ${token}` } },
       );
 
+      // --- সফলতা হলে এখানে টোস্ট কল হবে ---
       setSuccess(true);
+      showToast("Product added successfully!", "success");
       setTimeout(() => navigate("/admin/products/manage"), 1200);
     } catch (err) {
       console.error("Add product error:", err);
       setError(err.response?.data?.message || "Failed to add product.");
+
+      // --- ভুল হলে এখানে টোস্ট কল হবে ---
+      showToast(
+        err.response?.data?.message || "Failed to add product.",
+        "error",
+      );
     } finally {
       setUploading(false);
       setSubmitting(false);
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setError("");
+  //   setSuccess(false);
+
+  //   if (!name || !brand || !type || !price) {
+  //     setError("Name, brand, type, and price are required.");
+  //     return;
+  //   }
+
+  //   try {
+  //     setUploading(true);
+  //     let imageUrl = "";
+
+  //     if (imageFile) {
+  //       imageUrl = await uploadToImgBB(imageFile);
+  //     }
+  //     setUploading(false);
+
+  //     // Convert specs array into a plain object, skipping empty rows
+  //     const specsObject = specs.reduce((acc, item) => {
+  //       if (item.key.trim()) acc[item.key.trim()] = item.value;
+  //       return acc;
+  //     }, {});
+
+  //     setSubmitting(true);
+  //     const token = await auth.currentUser.getIdToken();
+
+  //     await api.post(
+  //       "/products",
+  //       {
+  //         name,
+  //         brand,
+  //         type,
+  //         price: Number(price),
+  //         images: imageUrl ? [imageUrl] : [],
+  //         specs: specsObject,
+  //         shortDescription,
+  //         fullDescription,
+  //         releaseYear: releaseYear ? Number(releaseYear) : null,
+  //       },
+  //       { headers: { Authorization: `Bearer ${token}` } },
+  //     );
+
+  //     setSuccess(true);
+  //     setTimeout(() => navigate("/admin/products/manage"), 1200);
+  //   } catch (err) {
+  //     console.error("Add product error:", err);
+  //     setError(err.response?.data?.message || "Failed to add product.");
+  //   } finally {
+  //     setUploading(false);
+  //     setSubmitting(false);
+  //   }
+  // };
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-10">
