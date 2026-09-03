@@ -7,6 +7,8 @@ import { BRANDS } from "../../../constants/brandConstants";
 import BtnPrimary from "../../../components/Button/BtnPrimary";
 import BtnSecondary from "../../../components/Button/BtnSecondary";
 import { useToast } from "../../../context/ToastContext";
+import AIGenerateButton from "../../../components/AIGenerateButton/AIGenerateButton";
+
 
 const TYPES = ["mobile", "laptop", "tablet", "watch", "mac-mini"];
 
@@ -283,11 +285,29 @@ const AddProduct = () => {
           </div>
         </div>
 
+       
+
         {/* Descriptions */}
         <div>
-          <label className="block text-xs text-gray-400 mb-1">
-            Short Description
-          </label>
+          <div className="flex items-center justify-between mb-1">
+            <label className="block text-xs text-gray-400">
+              Short Description
+            </label>
+            <AIGenerateButton
+              endpoint="/ai/generate-description"
+              payload={{
+                name,
+                brand,
+                type,
+                features: specs.map((s) => `${s.key}: ${s.value}`).join(", "),
+              }}
+              onResult={(data) => {
+                setShortDescription(data.shortDescription);
+                setFullDescription(data.fullDescription);
+              }}
+              label="Write with AI"
+            />
+          </div>
           <input
             type="text"
             value={shortDescription}
