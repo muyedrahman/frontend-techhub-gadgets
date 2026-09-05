@@ -32,6 +32,12 @@ const AddProduct = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [seoTitle, setSeoTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
+  const [keywords, setKeywords] = useState("");
+  const [altText, setAltText] = useState("");
+
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -82,22 +88,47 @@ const AddProduct = () => {
 
       setSubmitting(true);
       const token = await auth.currentUser.getIdToken();
+            await api.post(
+              "/products",
+              {
+                name,
+                brand,
+                type,
+                price: Number(price),
+                images: imageUrl ? [imageUrl] : [],
+                specs: specsObject,
+                shortDescription,
+                fullDescription,
+                releaseYear: releaseYear ? Number(releaseYear) : null,
+                seoTitle,
+                metaDescription,
+                keywords: keywords
+                  ? keywords
+                      .split(",")
+                      .map((k) => k.trim())
+                      .filter(Boolean)
+                  : [],
+                altText,
+              },
+              { headers: { Authorization: `Bearer ${token}` } },
+            );
 
-      await api.post(
-        "/products",
-        {
-          name,
-          brand,
-          type,
-          price: Number(price),
-          images: imageUrl ? [imageUrl] : [],
-          specs: specsObject,
-          shortDescription,
-          fullDescription,
-          releaseYear: releaseYear ? Number(releaseYear) : null,
-        },
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
+
+      // await api.post(
+      //   "/products",
+      //   {
+      //     name,
+      //     brand,
+      //     type,
+      //     price: Number(price),
+      //     images: imageUrl ? [imageUrl] : [],
+      //     specs: specsObject,
+      //     shortDescription,
+      //     fullDescription,
+      //     releaseYear: releaseYear ? Number(releaseYear) : null,
+      //   },
+      //   { headers: { Authorization: `Bearer ${token}` } },
+      // );
 
       // --- সফলতা হলে এখানে টোস্ট কল হবে ---
       setSuccess(true);
@@ -181,7 +212,46 @@ const AddProduct = () => {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         {/* Image upload */}
+        {/* Image upload */}
         <div>
+          <label className="block text-xs text-gray-400 mb-2">
+            Product Image
+          </label>
+          <div className="flex items-center gap-4 mb-3">
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="w-20 h-20 object-cover rounded-lg border border-white/10"
+              />
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-teal-400/10 file:text-teal-400 file:text-sm"
+            />
+          </div>
+
+          <div className="flex items-center justify-between mb-1">
+            <label className="block text-xs text-gray-400">Alt Text</label>
+            <AIGenerateButton
+              endpoint="/ai/generate-alt-text"
+              payload={{ name, brand, type }}
+              onResult={(data) => setAltText(data.altText)}
+              label="Suggest with AI"
+            />
+          </div>
+          <input
+            type="text"
+            value={altText}
+            onChange={(e) => setAltText(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm outline-none focus:border-teal-400/60"
+            placeholder="Describe the image for accessibility and SEO"
+          />
+        </div>
+
+        {/* <div>
           <label className="block text-xs text-gray-400 mb-2">
             Product Image
           </label>
@@ -200,7 +270,7 @@ const AddProduct = () => {
               className="text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-teal-400/10 file:text-teal-400 file:text-sm"
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Basic fields */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -285,8 +355,6 @@ const AddProduct = () => {
           </div>
         </div>
 
-       
-
         {/* Descriptions */}
         <div>
           <div className="flex items-center justify-between mb-1">
@@ -328,6 +396,70 @@ const AddProduct = () => {
             className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm outline-none focus:border-teal-400/60 resize-none"
             placeholder="Detailed description"
           />
+        </div>
+
+        {/* SEO Settings */}
+        <div className="border-t border-white/10 pt-6">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-semibold text-white">SEO Settings</h3>
+            <AIGenerateButton
+              endpoint="/ai/generate-seo"
+              payload={{ name, brand, type, price, shortDescription }}
+              onResult={(data) => {
+                setSeoTitle(data.seoTitle);
+                setMetaDescription(data.metaDescription);
+                setKeywords(data.keywords.join(", "));
+              }}
+              label="Generate SEO"
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">
+                SEO Title{" "}
+                <span className="text-gray-600">({seoTitle.length}/60)</span>
+              </label>
+              <input
+                type="text"
+                value={seoTitle}
+                onChange={(e) => setSeoTitle(e.target.value)}
+                maxLength={60}
+                className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm outline-none focus:border-teal-400/60"
+                placeholder="Search-engine friendly title"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">
+                Meta Description{" "}
+                <span className="text-gray-600">
+                  ({metaDescription.length}/155)
+                </span>
+              </label>
+              <textarea
+                value={metaDescription}
+                onChange={(e) => setMetaDescription(e.target.value)}
+                maxLength={155}
+                rows={2}
+                className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm outline-none focus:border-teal-400/60 resize-none"
+                placeholder="Short summary shown in search results"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">
+                Keywords (comma-separated)
+              </label>
+              <input
+                type="text"
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+                className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm outline-none focus:border-teal-400/60"
+                placeholder="e.g. iphone 16 pro, apple smartphone, titanium phone"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Dynamic specs */}
