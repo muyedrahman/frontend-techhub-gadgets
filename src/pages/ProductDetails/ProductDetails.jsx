@@ -4,6 +4,7 @@ import api from "../../services/api";
 import BtnSecondary from "../../components/Button/BtnSecondary";
 import BtnPrimary from "../../components/Button/BtnPrimary";
 import ProductDetailsSkeleton from "../../components/Skeleton/ProductDetailsSkeleton";
+import { Helmet } from "react-helmet-async";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -51,6 +52,18 @@ const ProductDetails = () => {
     );
   }
 
+  // const {
+  //   name,
+  //   brand,
+  //   type,
+  //   price,
+  //   images,
+  //   specs,
+  //   shortDescription,
+  //   fullDescription,
+  //   releaseYear,
+  // } = product;
+
   const {
     name,
     brand,
@@ -61,6 +74,8 @@ const ProductDetails = () => {
     shortDescription,
     fullDescription,
     releaseYear,
+    seoTitle,
+    metaDescription,
   } = product;
 
   const imageSrc = images?.[0] || "https://placehold.co/600x600?text=No+Image";
@@ -68,6 +83,25 @@ const ProductDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-950 py-10">
+      <Helmet>
+        <title>{seoTitle || `${name} - TechHub`}</title>
+        <meta
+          name="description"
+          content={
+            metaDescription ||
+            shortDescription ||
+            `${name} specifications and details on TechHub`
+          }
+        />
+        <meta property="og:title" content={seoTitle || name} />
+        <meta
+          property="og:description"
+          content={metaDescription || shortDescription}
+        />
+        <meta property="og:image" content={imageSrc} />
+        <meta property="og:type" content="product" />
+      </Helmet>
+
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back link */}
         {/* <Link
